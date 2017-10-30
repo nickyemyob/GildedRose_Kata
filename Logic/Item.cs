@@ -1,4 +1,4 @@
-﻿namespace csharp
+﻿namespace csharp.Logic
 {
     public class Item
     {

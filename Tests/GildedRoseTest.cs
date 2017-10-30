@@ -1,7 +1,8 @@
-﻿using NUnit.Framework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using csharp.Logic;
+using NUnit.Framework;
 
-namespace csharp
+namespace csharp.Tests
 {
     [TestFixture]
     public class GildedRoseTest

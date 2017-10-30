@@ -61,11 +61,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApprovalTest.cs" />
-    <Compile Include="GildedRose.cs" />
-    <Compile Include="GildedRoseTest.cs" />
-    <Compile Include="Item.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Tests\ApprovalTest.cs" />
+    <Compile Include="Logic\GildedRose.cs" />
+    <Compile Include="Tests\GildedRoseTest.cs" />
+    <Compile Include="Logic\Item.cs" />
+    <Compile Include="Logic\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
