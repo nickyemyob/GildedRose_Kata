@@ -28,5 +28,27 @@ namespace csharp.Tests
             Assert.AreEqual(expectedItems[0].Quality, items[0].Quality);
 
         }
+
+        [Test]
+        public void DecreaseTheQualityTwiceAsFastWhenSellInReachesZero()
+        {
+            IList<Item> items = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 5 } };
+            var qualityUpdater = new GildedRose(items);
+            var expectedItems = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 3 } };
+            qualityUpdater.UpdateQuality();
+            Assert.AreEqual(expectedItems[0].Quality, items[0].Quality);
+
+        }
+
+        [Test]
+        public void NotDecreaseTheQualityWhenItIsNoQualityLeft()
+        {
+            IList<Item> items = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 0 } };
+            var qualityUpdater = new GildedRose(items);
+            var expectedItems = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 0 } };
+            qualityUpdater.UpdateQuality();
+            Assert.AreEqual(expectedItems[0].Quality, items[0].Quality);
+
+        }
     }
 }
