@@ -7,48 +7,80 @@ namespace csharp.Tests
     [TestFixture]
     public class GildedRoseShould
     {
+        
+
         [Test]
         public void DecreaseTheSellInOfAnItemByOne()
         {
-            IList<Item> items = new List<Item> { new Item { Name = "foo", SellIn = 1, Quality = 1 } };
-            var qualityUpdater = new GildedRose(items);
-            var expectedItems = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 0 } };
+            IList<Item> actualItems = new List<Item> { new Item { Name = "apple", SellIn = 1, Quality = 1 } };
+            var qualityUpdater = new GildedRose(actualItems);
+            
             qualityUpdater.UpdateQuality();
-            Assert.AreEqual(expectedItems[0].SellIn, items[0].SellIn);
+
+            var expectedItems = new List<Item> { new Item { Name = "apple", SellIn = 0, Quality = 0 } };
+            Assert.AreEqual(expectedItems[0].SellIn, actualItems[0].SellIn);
             
         }
 
         [Test]
         public void DecreaseTheQualityOfAnItemByOne()
         {
-            IList<Item> items = new List<Item> { new Item { Name = "foo", SellIn = 1, Quality = 1 } };
-            var qualityUpdater = new GildedRose(items);
-            var expectedItems = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 0 } };
+            IList<Item> actualItems = new List<Item> { new Item { Name = "apple", SellIn = 1, Quality = 1 } };
+            var qualityUpdater = new GildedRose(actualItems);
+            
             qualityUpdater.UpdateQuality();
-            Assert.AreEqual(expectedItems[0].Quality, items[0].Quality);
+
+            var expectedItems = new List<Item> { new Item { Name = "apple", SellIn = 0, Quality = 0 } };
+            Assert.AreEqual(expectedItems[0].Quality, actualItems[0].Quality);
 
         }
 
         [Test]
         public void DecreaseTheQualityTwiceAsFastWhenSellInReachesZero()
         {
-            IList<Item> items = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 5 } };
-            var qualityUpdater = new GildedRose(items);
-            var expectedItems = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 3 } };
+            IList<Item> actualItems = new List<Item> { new Item { Name = "apple", SellIn = 0, Quality = 5 } };
+            var qualityUpdater = new GildedRose(actualItems);
+
             qualityUpdater.UpdateQuality();
-            Assert.AreEqual(expectedItems[0].Quality, items[0].Quality);
+
+            var expectedItems = new List<Item> { new Item { Name = "apple", SellIn = 0, Quality = 3 } };
+            Assert.AreEqual(expectedItems[0].Quality, actualItems[0].Quality);
 
         }
 
         [Test]
-        public void NotDecreaseTheQualityWhenItIsNoQualityLeft()
+        public void NotDecreaseTheQualityWhenThereIsNoQualityLeft()
         {
-            IList<Item> items = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 0 } };
-            var qualityUpdater = new GildedRose(items);
-            var expectedItems = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 0 } };
+            IList<Item> actualItems = new List<Item> { new Item { Name = "apple", SellIn = 0, Quality = 0 } };
+            var qualityUpdater = new GildedRose(actualItems);
+            
             qualityUpdater.UpdateQuality();
-            Assert.AreEqual(expectedItems[0].Quality, items[0].Quality);
 
+            var expectedItems = new List<Item> { new Item { Name = "apple", SellIn = 0, Quality = 0 } };
+            Assert.AreEqual(expectedItems[0].Quality, actualItems[0].Quality);
+
+        }
+
+        private static readonly object[] AgedBrieScenarios =
+        {
+            new object[] {new Item{ Name = "Aged Brie", SellIn = 4, Quality = 6 }, new Item{ Name = "Aged Brie", SellIn = 5, Quality = 5 }},
+            new object[] {new Item{ Name = "Aged Brie", SellIn = 0, Quality = 6 }, new Item{ Name = "Aged Brie", SellIn = 5, Quality = 5 }},
+            new object[] {new Item{ Name = "Aged Brie", SellIn = -1, Quality = 7 }, new Item{ Name = "Aged Brie", SellIn = 0, Quality = 5 }}
+
+        };
+
+        [Test]
+        [TestCaseSource(nameof(AgedBrieScenarios))]
+        public void IncreaseTheQualityOfAgedBrieWhenOlder(Item expected, Item initialState)
+        {
+            IList<Item> actualItems = new List<Item> {initialState};
+            var qualityUpdater = new GildedRose(actualItems);
+            
+            qualityUpdater.UpdateQuality();
+
+            var expectedItems = new List<Item> {expected};
+            Assert.AreEqual(expectedItems[0].Quality, actualItems[0].Quality);
+            
         }
     }
 }
