@@ -105,5 +105,41 @@ namespace csharp.Tests
             Assert.AreEqual(expectedItems[0].Quality, actualItems[0].Quality);
 
         }
+
+        private static readonly object[] SulfurasNotSellingScenarios =
+        {
+            new object[] {new Item{ Name = "Sulfuras, Hand of Ragnaros", SellIn = 5, Quality = 50 }, new Item{ Name = "Sulfuras, Hand of Ragnaros", SellIn = 5, Quality = 50 }},
+            new object[] {new Item{ Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 50 }, new Item{ Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 50 }},
+            new object[] {new Item{ Name = "Sulfuras, Hand of Ragnaros", SellIn = -1, Quality = 50 }, new Item{ Name = "Sulfuras, Hand of Ragnaros", SellIn = -1, Quality = 50 }}
+
+        };
+
+        [Test]
+        [TestCaseSource(nameof(SulfurasNotSellingScenarios))]
+        public void NotDecreaseQualityForSulfuras(Item expected, Item initialState)
+        {
+            IList<Item> actualItems = new List<Item> { initialState };
+            var qualityUpdater = new GildedRose(actualItems);
+
+            qualityUpdater.UpdateQuality();
+
+            var expectedItems = new List<Item> { expected };
+            Assert.AreEqual(expectedItems[0].Quality, actualItems[0].Quality);
+
+        }
+
+        [Test]
+        [TestCaseSource(nameof(SulfurasNotSellingScenarios))]
+        public void NotDecreaseSellInDaysForSulfuras(Item expected, Item initialState)
+        {
+            IList<Item> actualItems = new List<Item> { initialState };
+            var qualityUpdater = new GildedRose(actualItems);
+
+            qualityUpdater.UpdateQuality();
+
+            var expectedItems = new List<Item> { expected };
+            Assert.AreEqual(expectedItems[0].SellIn, actualItems[0].SellIn);
+
+        }
     }
 }
