@@ -141,5 +141,72 @@ namespace csharp.Tests
             Assert.AreEqual(expectedItems[0].SellIn, actualItems[0].SellIn);
 
         }
+
+        private static readonly object[] BackstagePassesWhereSellInIsLessThanFiveDaysScenarios =
+        {
+            new object[] {new Item{ Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 4, Quality = 23 }, new Item{ Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 20 }},
+            new object[] {new Item{ Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 0, Quality = 23 }, new Item{ Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 1, Quality = 20 }}
+
+        };
+
+        [Test]
+        [TestCaseSource(nameof(BackstagePassesWhereSellInIsLessThanFiveDaysScenarios))]
+        public void IncreaseQualityOfBackStagePassesByThreeWhenFiveOrLessDaysToConcert(Item expected, Item initialState)
+        {
+            IList<Item> actualItems = new List<Item> { initialState };
+            var qualityUpdater = new GildedRose(actualItems);
+
+            qualityUpdater.UpdateQuality();
+
+            var expectedItems = new List<Item> { expected };
+            Assert.AreEqual(expectedItems[0].SellIn, actualItems[0].SellIn);
+
+        }
+
+        private static readonly object[] BackstagePassesWhereSellInIsBetweenFiveAndTenDaysScenarios =
+        {
+            new object[] {new Item{ Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 6, Quality = 22 }, new Item{ Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 7, Quality = 20 }}
+
+        };
+
+        [Test]
+        [TestCaseSource(nameof(BackstagePassesWhereSellInIsBetweenFiveAndTenDaysScenarios))]
+        public void IncreaseQualityOfBackStagePassesByTwoWhenBetweenFiveAndTenDaysToConcert(Item expected, Item initialState)
+        {
+            IList<Item> actualItems = new List<Item> { initialState };
+            var qualityUpdater = new GildedRose(actualItems);
+
+            qualityUpdater.UpdateQuality();
+
+            var expectedItems = new List<Item> { expected };
+            Assert.AreEqual(expectedItems[0].SellIn, actualItems[0].SellIn);
+
+        }
+
+        private static readonly object[] ExpiredBackstagePassesScenarios =
+        {
+            new object[] {new Item{ Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = -1, Quality = 0 }, new Item{ Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 0, Quality = 20 }}
+
+        };
+
+        [Test]
+        [TestCaseSource(nameof(ExpiredBackstagePassesScenarios))]
+        public void MakePassesHaveNoQualityWhenPassesExpire(Item expected, Item initialState)
+        {
+            IList<Item> actualItems = new List<Item> { initialState };
+            var qualityUpdater = new GildedRose(actualItems);
+
+            qualityUpdater.UpdateQuality();
+
+            var expectedItems = new List<Item> { expected };
+            Assert.AreEqual(expectedItems[0].SellIn, actualItems[0].SellIn);
+
+        }
+
+
+
+
+
+
     }
 }
