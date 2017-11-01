@@ -82,5 +82,28 @@ namespace csharp.Tests
             Assert.AreEqual(expectedItems[0].Quality, actualItems[0].Quality);
             
         }
+
+        private static readonly object[] QualityIncreaseScenarios =
+        {
+            new object[] {new Item{ Name = "Aged Brie", SellIn = 4, Quality = 50 }, new Item{ Name = "Aged Brie", SellIn = 5, Quality = 50 }},
+            new object[] {new Item{ Name = "Aged Brie", SellIn = 4, Quality = 50 }, new Item{ Name = "Aged Brie", SellIn = 5, Quality = 49 }},
+            new object[] {new Item{ Name = "Aged Brie", SellIn = -1, Quality = 50 }, new Item{ Name = "Aged Brie", SellIn = 0, Quality = 49 }},
+            new object[] {new Item{ Name = "Aged Brie", SellIn = -1, Quality = 50 }, new Item{ Name = "Aged Brie", SellIn = 0, Quality = 50 }}
+
+        };
+
+        [Test]
+        [TestCaseSource(nameof(QualityIncreaseScenarios))]
+        public void NotIncreaseTheQualityOfAnItemMoreThan50(Item expected, Item initialState)
+        {
+            IList<Item> actualItems = new List<Item> { initialState };
+            var qualityUpdater = new GildedRose(actualItems);
+
+            qualityUpdater.UpdateQuality();
+
+            var expectedItems = new List<Item> { expected };
+            Assert.AreEqual(expectedItems[0].Quality, actualItems[0].Quality);
+
+        }
     }
 }
