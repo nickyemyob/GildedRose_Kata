@@ -20,6 +20,7 @@ namespace csharp.Logic
                     {
                         if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
                         {
+                            //decrease normal item quality a first time
                             _items[i].Quality = _items[i].Quality - 1;
                         }
                     }
@@ -51,6 +52,9 @@ namespace csharp.Logic
                     }
                 }
 
+
+/////////////////////////////////////////
+
                 if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
                 {
                     _items[i].SellIn = _items[i].SellIn - 1;
@@ -66,6 +70,7 @@ namespace csharp.Logic
                             {
                                 if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
                                 {
+                                    //decrease normal item quality a second time
                                     _items[i].Quality = _items[i].Quality - 1;
                                 }
                             }
@@ -84,6 +89,19 @@ namespace csharp.Logic
                     }
                 }
             }
+        }
+
+
+        public void DecreaseNormalItemQualityByTwo(int index)
+        {
+            if (_items[index].Name == "Aged Brie" ||
+                _items[index].Name == "Backstage passes to a TAFKAL80ETC concert" ||
+                _items[index].Quality <= 0 ||
+                _items[index].Name == "Sulfuras, Hand of Ragnaros")
+                return;
+
+                _items[index].Quality = _items[index].Quality - 1;
+            
         }
     }
 }
