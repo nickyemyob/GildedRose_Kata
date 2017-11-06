@@ -203,6 +203,26 @@ namespace csharp.Tests
 
         }
 
+        private static readonly object[] IncreaseQualityScenarios =
+        {
+            new object[] {50, new Item{ Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 4, Quality = 50 }},
+            new object[] {50, new Item{ Name = "Aged Brie", SellIn = 4, Quality = 50 }}
+
+        };
+
+        [Test]
+        [TestCaseSource(nameof(IncreaseQualityScenarios))]
+        public void NotAllowQualityToGoBeyondFifty(int expectedQuality, Item initialState)
+        {
+            IList<Item> actualItems = new List<Item> { initialState };
+            var qualityUpdater = new GildedRose(actualItems);
+
+            qualityUpdater.UpdateQuality();
+
+            Assert.IsTrue(expectedQuality == actualItems[0].Quality);
+
+        }
+
 
 
 
