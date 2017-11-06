@@ -14,25 +14,27 @@ namespace csharp.Logic
         {
             for (var i = 0; i < _items.Count; i++)
             {
-                if (_items[i].Name != "Aged Brie" && _items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    if (_items[i].Quality > 0)
-                    {
-                        if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
-                        {
-                            //decrease normal item quality a first time
-                            _items[i].Quality = _items[i].Quality - 1;
-                        }
-                    }
-                }
-                else
+                //                if (_items[i].Name != "Aged Brie" && _items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+                //                {
+                //                    if (_items[i].Quality > 0)
+                //                    {
+                //                        if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
+                //                        {
+                //                            //decrease normal item quality a first time
+                //                            _items[i].Quality = _items[i].Quality - 1;
+                //                        }
+                //                    }
+                //                }
+                //                else
+                DecreaseNormalItemQualityByTwo(i);
                 {
                     if (_items[i].Quality < 50)
                     {
-                        _items[i].Quality = _items[i].Quality + 1;
+                        
 
                         if (_items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
                         {
+                            _items[i].Quality = _items[i].Quality + 1;
                             if (_items[i].SellIn < 11)
                             {
                                 if (_items[i].Quality < 50)
@@ -48,6 +50,10 @@ namespace csharp.Logic
                                     _items[i].Quality = _items[i].Quality + 1;
                                 }
                             }
+                        }
+                        else if (_items[i].Name == "Aged Brie")
+                        {
+                            _items[i].Quality = _items[i].Quality + 1;
                         }
                     }
                 }
