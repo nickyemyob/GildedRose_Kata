@@ -36,14 +36,14 @@ namespace csharp.Tests
         }
 
         [Test]
-        public void DecreaseTheQualityTwiceAsFastWhenSellInReachesZero()
+        public void DecreaseTheQualityTwiceAsFastWhenPastSellInDate()
         {
-            IList<Item> actualItems = new List<Item> { new Item { Name = "apple", SellIn = 0, Quality = 5 } };
+            IList<Item> actualItems = new List<Item> { new Item { Name = "apple", SellIn = -1, Quality = 5 } };
             var qualityUpdater = new GildedRose(actualItems);
 
             qualityUpdater.UpdateQuality();
 
-            var expectedItems = new List<Item> { new Item { Name = "apple", SellIn = 0, Quality = 3 } };
+            var expectedItems = new List<Item> { new Item { Name = "apple", SellIn = -2, Quality = 3 } };
             Assert.AreEqual(expectedItems[0].Quality, actualItems[0].Quality);
 
         }
@@ -222,6 +222,8 @@ namespace csharp.Tests
             Assert.IsTrue(expectedQuality == actualItems[0].Quality);
 
         }
+
+
 
 
 
