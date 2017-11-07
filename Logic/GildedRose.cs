@@ -4,7 +4,7 @@ namespace csharp.Logic
 {
     public class GildedRose
     {
-        IList<Item> _items;
+        private readonly IList<Item> _items;
         public GildedRose(IList<Item> items)
         {
             _items = items;
@@ -12,98 +12,98 @@ namespace csharp.Logic
 
         public void UpdateQuality()
         {
-            for (var i = 0; i < _items.Count; i++)
+            foreach (var item in _items)
             {
 
-                DecreaseNormalItemQualityByOne(i);
-                IncreasesQualityOfBackStagePassses(i);
-                IncreaseBrieNormally(i);
-                UpdateSellInDays(i);
+                DecreaseNormalItemQualityByOne(item);
+                IncreasesQualityOfBackStagePassses(item);
+                IncreaseBrieNormally(item);
+                UpdateSellInDays(item);
 
-                if (_items[i].SellIn < 0)
+                if (item.SellIn < 0)
                 {
-                    DecreaseNormalItemQualityWhenPassedSellByDate(i);
-                    BackstagePassQualityIsZeroWhenPassedSellInDate(i);
-                    IncreaseQualityOfOlderAgedBrie(i);
+                    DecreaseNormalItemQualityWhenPassedSellByDate(item);
+                    BackstagePassQualityIsZeroWhenPassedSellInDate(item);
+                    IncreaseQualityOfOlderAgedBrie(item);
                 }
             }
         }
 
 
-        public void DecreaseNormalItemQualityByOne(int index)
+        public void DecreaseNormalItemQualityByOne(Item item)
         {
-            if (_items[index].Name == "Aged Brie" ||
-                _items[index].Name == "Backstage passes to a TAFKAL80ETC concert" ||
-                _items[index].Name == "Sulfuras, Hand of Ragnaros"||
-                _items[index].Quality <= 0)
+            if (item.Name == "Aged Brie" ||
+                item.Name == "Backstage passes to a TAFKAL80ETC concert" ||
+                item.Name == "Sulfuras, Hand of Ragnaros"||
+                item.Quality <= 0)
                 return;
 
-                _items[index].Quality = _items[index].Quality - 1;
+                item.Quality = item.Quality - 1;
             
         }
 
-        public void IncreasesQualityOfBackStagePassses(int i)
+        public void IncreasesQualityOfBackStagePassses(Item item)
         {
-            if (_items[i].Name != "Backstage passes to a TAFKAL80ETC concert" || _items[i].Quality >= 50) return;
-            _items[i].Quality = _items[i].Quality + 1;
-            if (_items[i].SellIn < 11)
+            if (item.Name != "Backstage passes to a TAFKAL80ETC concert" || item.Quality >= 50) return;
+            item.Quality = item.Quality + 1;
+            if (item.SellIn < 11)
             {
-                if (_items[i].Quality < 50)
+                if (item.Quality < 50)
                 {
-                    _items[i].Quality = _items[i].Quality + 1;
+                    item.Quality = item.Quality + 1;
                 }
             }
 
-            if (_items[i].SellIn >= 6) return;
-            if (_items[i].Quality < 50)
+            if (item.SellIn >= 6) return;
+            if (item.Quality < 50)
             {
-                _items[i].Quality = _items[i].Quality + 1;
+                item.Quality = item.Quality + 1;
             }
         }
 
-        public void IncreaseBrieNormally(int i)
+        public void IncreaseBrieNormally(Item item)
         {
-            if (_items[i].Name == "Aged Brie" && _items[i].Quality < 50)
+            if (item.Name == "Aged Brie" && item.Quality < 50)
             {
-                _items[i].Quality = _items[i].Quality + 1;
+                item.Quality = item.Quality + 1;
             }
 
         }
 
-        public void UpdateSellInDays(int i)
+        public void UpdateSellInDays(Item item)
         {
-            if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
+            if (item.Name != "Sulfuras, Hand of Ragnaros")
             {
-                _items[i].SellIn = _items[i].SellIn - 1;
+                item.SellIn = item.SellIn - 1;
             }
         }
 
-        public void DecreaseNormalItemQualityWhenPassedSellByDate(int index)
+        public void DecreaseNormalItemQualityWhenPassedSellByDate(Item item)
         {
-            if (_items[index].Name == "Aged Brie" ||
-                _items[index].Name == "Backstage passes to a TAFKAL80ETC concert" ||
-                _items[index].Quality <= 0 ||
-                _items[index].Name == "Sulfuras, Hand of Ragnaros")
+            if (item.Name == "Aged Brie" ||
+                item.Name == "Backstage passes to a TAFKAL80ETC concert" ||
+                item.Quality <= 0 ||
+                item.Name == "Sulfuras, Hand of Ragnaros")
                 return;
 
-            _items[index].Quality = _items[index].Quality - 1;
+            item.Quality = item.Quality - 1;
 
         }
 
-        public void BackstagePassQualityIsZeroWhenPassedSellInDate(int i)
+        public void BackstagePassQualityIsZeroWhenPassedSellInDate(Item item)
         {
-            if (_items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
+            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
             {
-                _items[i].Quality = _items[i].Quality - _items[i].Quality;
+                item.Quality = item.Quality - item.Quality;
             }
         }
 
-        public void IncreaseQualityOfOlderAgedBrie(int i)
+        public void IncreaseQualityOfOlderAgedBrie(Item item)
         {
-            if (_items[i].Name != "Aged Brie") return;
-            if (_items[i].Quality < 50)
+            if (item.Name != "Aged Brie") return;
+            if (item.Quality < 50)
             {
-                _items[i].Quality = _items[i].Quality + 1;
+                item.Quality = item.Quality + 1;
             }
         }
 
