@@ -220,6 +220,7 @@ namespace csharp.Tests
             qualityUpdater.UpdateQuality();
 
             Assert.IsTrue(expectedQuality == actualItems[0].Quality);
+            Assert.IsFalse(expectedQuality < actualItems[0].Quality);
 
         }
 
