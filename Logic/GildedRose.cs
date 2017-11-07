@@ -25,6 +25,7 @@ namespace csharp.Logic
                     DecreaseNormalItemQualityWhenPassedSellByDate(item);
                     BackstagePassQualityIsZeroWhenPassedSellInDate(item);
                     IncreaseQualityOfOlderAgedBrie(item);
+                    DecreaseQualityOfConjuredItems(item);
                 }
             }
         }
@@ -35,6 +36,7 @@ namespace csharp.Logic
             if (item.Name == "Aged Brie" ||
                 item.Name == "Backstage passes to a TAFKAL80ETC concert" ||
                 item.Name == "Sulfuras, Hand of Ragnaros"||
+                item.Name == "Conjured Mana Cake"||
                 item.Quality <= 0)
                 return;
 
@@ -83,7 +85,8 @@ namespace csharp.Logic
             if (item.Name == "Aged Brie" ||
                 item.Name == "Backstage passes to a TAFKAL80ETC concert" ||
                 item.Quality <= 0 ||
-                item.Name == "Sulfuras, Hand of Ragnaros")
+                item.Name == "Sulfuras, Hand of Ragnaros"||
+                item.Name == "Conjured Mana Cake")
                 return;
 
             item.Quality = item.Quality - 1;
@@ -105,6 +108,26 @@ namespace csharp.Logic
             {
                 item.Quality = item.Quality + 1;
             }
+        }
+
+        public void DecreaseQualityOfConjuredItems(Item item)
+        {
+            if (item.Name == "Conjured Mana Cake")
+            {
+
+                for (int i = 0; i < 4; i++)
+                {
+                    if (item.Quality > 0)
+                    {
+                        item.Quality = item.Quality - 1;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
         }
 
 

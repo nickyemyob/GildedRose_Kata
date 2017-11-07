@@ -245,6 +245,29 @@ namespace csharp.Tests
 
         }
 
+        private static readonly object[] ConjuredItemsScenarios =
+        {
+            new object[] {0, new Item{ Name = "Conjured Mana Cake", SellIn = 0, Quality = 0 }},
+            new object[] {0, new Item{ Name = "Conjured Mana Cake", SellIn = 0, Quality = 4 }},
+            new object[] {0, new Item{ Name = "Conjured Mana Cake", SellIn = 0, Quality = 2 }},
+//            new object[] {0, new Item{ Name = "Conjured Mana Cake", SellIn = 0, Quality = 0 }}
+
+        };
+
+        [Test]
+        [TestCaseSource(nameof(ConjuredItemsScenarios))]
+        public void DecreaseQualityOfConjuredItems(int expectedQuality, Item initialState)
+        {
+            IList<Item> actualItems = new List<Item> { initialState };
+            var qualityUpdater = new GildedRose(actualItems);
+
+            qualityUpdater.UpdateQuality();
+
+            Assert.AreEqual(expectedQuality,actualItems[0].Quality);
+            //Assert.IsFalse(expectedQuality > actualItems[0].Quality);
+
+        }
+
 
 
 
