@@ -224,6 +224,27 @@ namespace csharp.Tests
 
         }
 
+        private static readonly object[] DecreaseQualityScenarios =
+        {
+            new object[] {0, new Item{ Name = "Apple", SellIn = 1, Quality = 0 }},
+            new object[] {0, new Item{ Name = "Apple", SellIn = 0, Quality = 0 }}
+
+        };
+
+        [Test]
+        [TestCaseSource(nameof(DecreaseQualityScenarios))]
+        public void NotAllowQualityToGoLowerThanZero(int expectedQuality, Item initialState)
+        {
+            IList<Item> actualItems = new List<Item> { initialState };
+            var qualityUpdater = new GildedRose(actualItems);
+
+            qualityUpdater.UpdateQuality();
+
+            Assert.IsTrue(expectedQuality == actualItems[0].Quality);
+            Assert.IsFalse(expectedQuality > actualItems[0].Quality);
+
+        }
+
 
 
 
