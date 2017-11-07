@@ -20,12 +20,6 @@ namespace csharp.Logic
                 IncreaseBrieNormally(i);
                 UpdateSellInDays(i);
 
-
-//                if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
-//                {
-//                    _items[i].SellIn = _items[i].SellIn - 1;
-//                }
-
                 if (_items[i].SellIn < 0)
                 {
                     if (_items[i].Name != "Aged Brie")
