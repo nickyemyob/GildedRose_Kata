@@ -14,52 +14,11 @@ namespace csharp.Logic
         {
             for (var i = 0; i < _items.Count; i++)
             {
-                //                if (_items[i].Name != "Aged Brie" && _items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
-                //                {
-                //                    if (_items[i].Quality > 0)
-                //                    {
-                //                        if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
-                //                        {
-                //                            //decrease normal item quality a first time
-                //                            _items[i].Quality = _items[i].Quality - 1;
-                //                        }
-                //                    }
-                //                }
-                //                else
+
                 DecreaseNormalItemQualityByTwo(i);
-                {
-                    if (_items[i].Quality < 50)
-                    {
-                        
+                IncreasesQualityOfBackStagePassses(i);
+                IncreaseBrieNormally(i);
 
-                        if (_items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
-                        {
-                            _items[i].Quality = _items[i].Quality + 1;
-                            if (_items[i].SellIn < 11)
-                            {
-                                if (_items[i].Quality < 50)
-                                {
-                                    _items[i].Quality = _items[i].Quality + 1;
-                                }
-                            }
-
-                            if (_items[i].SellIn < 6)
-                            {
-                                if (_items[i].Quality < 50)
-                                {
-                                    _items[i].Quality = _items[i].Quality + 1;
-                                }
-                            }
-                        }
-                        else if (_items[i].Name == "Aged Brie")
-                        {
-                            _items[i].Quality = _items[i].Quality + 1;
-                        }
-                    }
-                }
-
-
-/////////////////////////////////////////
 
                 if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
                 {
@@ -108,6 +67,41 @@ namespace csharp.Logic
 
                 _items[index].Quality = _items[index].Quality - 1;
             
+        }
+
+        public void IncreasesQualityOfBackStagePassses(int i)
+        {
+            if (_items[i].Quality < 50)
+            {
+                if (_items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
+                {
+                    _items[i].Quality = _items[i].Quality + 1;
+                    if (_items[i].SellIn < 11)
+                    {
+                        if (_items[i].Quality < 50)
+                        {
+                            _items[i].Quality = _items[i].Quality + 1;
+                        }
+                    }
+
+                    if (_items[i].SellIn < 6)
+                    {
+                        if (_items[i].Quality < 50)
+                        {
+                            _items[i].Quality = _items[i].Quality + 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void IncreaseBrieNormally(int i)
+        {
+            if (_items[i].Name == "Aged Brie" && _items[i].Quality < 50)
+            {
+                _items[i].Quality = _items[i].Quality + 1;
+            }
+
         }
     }
 }
