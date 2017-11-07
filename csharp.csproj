@@ -67,6 +67,8 @@
     <Compile Include="Logic\Item.cs" />
     <Compile Include="Logic\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Inventory.cs" />
+    <Compile Include="Tests\InventoryShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
