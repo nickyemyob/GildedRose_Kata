@@ -249,8 +249,7 @@ namespace csharp.Tests
         {
             new object[] {0, new Item{ Name = "Conjured Mana Cake", SellIn = 0, Quality = 0 }},
             new object[] {0, new Item{ Name = "Conjured Mana Cake", SellIn = 0, Quality = 4 }},
-            new object[] {0, new Item{ Name = "Conjured Mana Cake", SellIn = 0, Quality = 2 }},
-//            new object[] {0, new Item{ Name = "Conjured Mana Cake", SellIn = 0, Quality = 0 }}
+            new object[] {0, new Item{ Name = "Conjured Mana Cake", SellIn = 0, Quality = 2 }}
 
         };
 
@@ -264,7 +263,6 @@ namespace csharp.Tests
             qualityUpdater.UpdateQuality();
 
             Assert.AreEqual(expectedQuality,actualItems[0].Quality);
-            //Assert.IsFalse(expectedQuality > actualItems[0].Quality);
 
         }
 

@@ -18,6 +18,8 @@ namespace csharp.Logic
                 DecreaseNormalItemQualityByOne(item);
                 IncreasesQualityOfBackStagePassses(item);
                 IncreaseBrieNormally(item);
+                DecreaseQualityOfConjuredItems(item);
+
                 UpdateSellInDays(item);
 
                 if (item.SellIn < 0)
@@ -25,7 +27,7 @@ namespace csharp.Logic
                     DecreaseNormalItemQualityWhenPassedSellByDate(item);
                     BackstagePassQualityIsZeroWhenPassedSellInDate(item);
                     IncreaseQualityOfOlderAgedBrie(item);
-                    DecreaseQualityOfConjuredItems(item);
+                    DecreaseQualityOfConjuredItemsFaster(item);
                 }
             }
         }
@@ -110,24 +112,21 @@ namespace csharp.Logic
             }
         }
 
+        public void DecreaseQualityOfConjuredItemsFaster(Item item)
+        {
+            if (item.Name == "Conjured Mana Cake")
+                for (var i = 0; i < 4; i++)
+                    if (item.Quality > 0)
+                        item.Quality = item.Quality - 1;
+                    else
+                        break;
+        }
+
         public void DecreaseQualityOfConjuredItems(Item item)
         {
             if (item.Name == "Conjured Mana Cake")
-            {
-
-                for (int i = 0; i < 4; i++)
-                {
-                    if (item.Quality > 0)
-                    {
-                        item.Quality = item.Quality - 1;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-
+                if (item.Quality > 0)
+                    item.Quality = item.Quality - 1;
         }
 
 
