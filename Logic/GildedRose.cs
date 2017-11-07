@@ -34,8 +34,8 @@ namespace csharp.Logic
         {
             if (_items[index].Name == "Aged Brie" ||
                 _items[index].Name == "Backstage passes to a TAFKAL80ETC concert" ||
-                _items[index].Quality <= 0 ||
-                _items[index].Name == "Sulfuras, Hand of Ragnaros")
+                _items[index].Name == "Sulfuras, Hand of Ragnaros"||
+                _items[index].Quality <= 0)
                 return;
 
                 _items[index].Quality = _items[index].Quality - 1;
@@ -44,27 +44,20 @@ namespace csharp.Logic
 
         public void IncreasesQualityOfBackStagePassses(int i)
         {
-            if (_items[i].Quality < 50)
+            if (_items[i].Name != "Backstage passes to a TAFKAL80ETC concert" || _items[i].Quality >= 50) return;
+            _items[i].Quality = _items[i].Quality + 1;
+            if (_items[i].SellIn < 11)
             {
-                if (_items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
+                if (_items[i].Quality < 50)
                 {
                     _items[i].Quality = _items[i].Quality + 1;
-                    if (_items[i].SellIn < 11)
-                    {
-                        if (_items[i].Quality < 50)
-                        {
-                            _items[i].Quality = _items[i].Quality + 1;
-                        }
-                    }
-
-                    if (_items[i].SellIn < 6)
-                    {
-                        if (_items[i].Quality < 50)
-                        {
-                            _items[i].Quality = _items[i].Quality + 1;
-                        }
-                    }
                 }
+            }
+
+            if (_items[i].SellIn >= 6) return;
+            if (_items[i].Quality < 50)
+            {
+                _items[i].Quality = _items[i].Quality + 1;
             }
         }
 
@@ -107,12 +100,10 @@ namespace csharp.Logic
 
         public void IncreaseQualityOfOlderAgedBrie(int i)
         {
-            if (_items[i].Name == "Aged Brie")
+            if (_items[i].Name != "Aged Brie") return;
+            if (_items[i].Quality < 50)
             {
-                if (_items[i].Quality < 50)
-                {
-                    _items[i].Quality = _items[i].Quality + 1;
-                }
+                _items[i].Quality = _items[i].Quality + 1;
             }
         }
 
