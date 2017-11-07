@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using csharp.Logic;
 
-namespace csharp.Tests
+namespace csharp.Logic
 {
     internal class Inventory
     {
