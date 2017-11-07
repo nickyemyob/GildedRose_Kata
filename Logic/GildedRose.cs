@@ -18,12 +18,13 @@ namespace csharp.Logic
                 DecreaseNormalItemQualityByTwo(i);
                 IncreasesQualityOfBackStagePassses(i);
                 IncreaseBrieNormally(i);
+                UpdateSellInDays(i);
 
 
-                if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
-                {
-                    _items[i].SellIn = _items[i].SellIn - 1;
-                }
+//                if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
+//                {
+//                    _items[i].SellIn = _items[i].SellIn - 1;
+//                }
 
                 if (_items[i].SellIn < 0)
                 {
@@ -102,6 +103,14 @@ namespace csharp.Logic
                 _items[i].Quality = _items[i].Quality + 1;
             }
 
+        }
+
+        public void UpdateSellInDays(int i)
+        {
+            if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
+            {
+                _items[i].SellIn = _items[i].SellIn - 1;
+            }
         }
     }
 }
